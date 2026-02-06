@@ -64,3 +64,18 @@ LEFT JOIN gold.dim_products pr
 ON sd.sls_prd_key = pr.product_number
 LEFT JOIN gold.dim_customers cu 
 ON sd.sls_cust_id = cu.customer_id
+
+
+-- assigning primary keys and foreign keys
+
+ALTER TABLE gold.dim_customers 
+ADD CONSTRAINT PK_customer_key PRIMARY KEY (customer_key);
+
+ALTER TABLE gold.dim_products 
+ADD CONSTRAINT PK_product_key PRIMARY KEY (product_key);
+
+ALTER TABLE gold.fact_sales
+ADD CONSTRAINT FK_product_key FOREIGN KEY (product_key) REFERENCES gold.dim_products(product_key);
+
+ALTER TABLE gold.fact_sales
+ADD CONSTRAINT FK_customer_key FOREIGN KEY (customer_key) REFERENCES gold.dim_products(customer_key);
